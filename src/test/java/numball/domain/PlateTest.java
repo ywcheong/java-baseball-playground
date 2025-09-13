@@ -1,6 +1,7 @@
 package numball.domain;
 
 import numball.domain.exception.DuplicativePlateValueException;
+import numball.domain.exception.InvalidPlateValueException;
 import numball.domain.exception.PlateSizeException;
 import numball.domain.plate.Plate;
 import numball.domain.plate.throwresult.ThrowResult;
@@ -30,6 +31,13 @@ public class PlateTest {
     void cannotMakeWeirdSizePlate() {
         // given - when - then
         Assertions.assertThrows(PlateSizeException.class, () -> Plate.from("1234"));
+    }
+
+    @Test
+    @DisplayName("숫자가 아닌 문자의 플레이트를 생성할 수 없다")
+    void cannotMakeWeirdCharPlate() {
+        // given - when - then
+        Assertions.assertThrows(InvalidPlateValueException.class, () -> Plate.from("12a"));
     }
 
     @Test

@@ -1,9 +1,17 @@
 package numball.domain.plate;
 
+import numball.domain.exception.InvalidPlateValueException;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class PlateValue {
+    public static final Set<Character> ACCEPTABLE_VALUES = new HashSet<>(Set.of('1', '2', '3', '4', '5', '6', '7', '8', '9'));
     private final char value;
 
     public PlateValue(char value) {
+        if (!ACCEPTABLE_VALUES.contains(value))
+            throw new InvalidPlateValueException();
         this.value = value;
     }
 
