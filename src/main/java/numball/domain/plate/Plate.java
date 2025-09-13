@@ -1,13 +1,15 @@
 package numball.domain.plate;
 
 import numball.domain.exception.DuplicativePlateValueException;
+import numball.domain.exception.PlateSizeException;
 import numball.domain.plate.throwresult.SingleThrowResult;
 import numball.domain.plate.throwresult.ThrowResult;
-import numball.domain.exception.PlateSizeException;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Plate {
     // 숫자야구 게임의 플레이트 사이즈 (예: 3이면 "XXX")
@@ -77,5 +79,13 @@ public class Plate {
         if (questionValue.equals(elements.get(questionPos))) return SingleThrowResult.STRIKE;
         if (elements.containsValue(questionValue)) return SingleThrowResult.BALL;
         return SingleThrowResult.NOTHING;
+    }
+
+    public String toString() {
+        return IntStream.range(0, PLATE_SIZE)
+                .mapToObj(PlatePosition::new)
+                .map(it -> elements.get(it).getValue())
+                .map(String::valueOf)
+                .collect(Collectors.joining());
     }
 }
